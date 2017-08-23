@@ -1,6 +1,7 @@
 package com.zhangyingwei.miner.mainserver.repertory.controller;
 
 import com.zhangyingwei.miner.mainserver.common.exception.MinerMailServerException;
+import com.zhangyingwei.miner.mainserver.common.utils.MinerMailUtils;
 import com.zhangyingwei.miner.mainserver.mail.model.MailInfo;
 import com.zhangyingwei.miner.mainserver.repertory.model.Content;
 import com.zhangyingwei.miner.mainserver.repertory.model.Subscribe;
@@ -33,10 +34,17 @@ public class MailController {
         List<Content> conts = this.contentController.listContentNew(String.join(",", topics));
         Map<String, Content> contMap = conts.stream().collect(Collectors.toMap(Content::getTopic, content -> content));
 
+        List<MailInfo> mailInfos = new ArrayList<MailInfo>();
         subs.stream().map(sub -> {
             String tops = sub.getTopics();
-            List<Content> cons = Arrays.stream(tops.split(",")).map(top -> contMap.get(top)).collect(Collectors.toList());
-            return cons;
+            Arrays.stream(tops.split(",")).map(top -> contMap.get(top)).map(content -> {
+                MailInfo mailInfo = new MailInfo();
+                mailInfo.setTo(sub.getEmail());
+                mailInfo.setTitle(MinerMailUtils.title());
+                mailInfo.setContent(MinerMailUtils.content(sub,content));
+                return mailInfo;
+            });
+            return null;
         });
 
         return null;
