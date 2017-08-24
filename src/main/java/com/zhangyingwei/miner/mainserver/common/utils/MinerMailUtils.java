@@ -25,21 +25,29 @@ public class MinerMailUtils {
             e.printStackTrace();
         }
     }
+
+    public static String getConfig(String key) {
+        return config.getProperty(key);
+    }
+
     public static String title() {
         return config.getProperty("miner.mail.title");
     }
 
-    public static String content(Subscribe sub, List<Content> contents) {
+    public static String content(List<Content> contents) {
         Map<String, List<Content>> map = new HashMap<String,List<Content>>();
         contents.stream().map(content -> Tuple.mk(content.getTopic(),content)).forEach(tuple -> {
             if(map.containsKey(tuple._(0))){
                 map.get(tuple._(0)).add((Content) tuple._(1));
             }else{
                 List<Content> list = new ArrayList<Content>();
+                list.add((Content) tuple._(1));
                 map.put((String) tuple._(0), list);
             }
         });
-        return null;
+        Map contentMap = new HashMap();
+        contentMap.put("items", map);
+        return BeetlUtils.formateTemplage(contentMap);
     }
 
     static class Tuple<A> {

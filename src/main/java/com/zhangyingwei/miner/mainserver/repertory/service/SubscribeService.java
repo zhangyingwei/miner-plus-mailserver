@@ -18,6 +18,7 @@ public class SubscribeService implements ISubscribeService {
 
     public List<Subscribe> listSubscribeValid() throws MinerMailServerException {
         try {
+            logger.info("ListSubsctibe sate:" + Subscribe.FLAG_VALID);
             return this.subscribeMapper.listSubscribesByFlag(Subscribe.FLAG_VALID);
         } catch (Exception e) {
             throw new MinerMailServerException(e);
