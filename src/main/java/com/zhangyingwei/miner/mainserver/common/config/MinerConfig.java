@@ -1,7 +1,6 @@
 package com.zhangyingwei.miner.mainserver.common.config;
 
 import org.apache.commons.lang3.StringUtils;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;

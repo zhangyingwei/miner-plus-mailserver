@@ -9,3 +9,10 @@ Miner 也许是国内外第二烂的内容订阅服务
 推送时间可能需要另外一个时间来标识
 
 > mvn clean package assembly:single -Pprod -Dmaven.test.skip=true
+
+
+## 配置
+查询时间
+```
+--date.step=0
+```

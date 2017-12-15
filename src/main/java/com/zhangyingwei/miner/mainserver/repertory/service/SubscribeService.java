@@ -16,6 +16,7 @@ public class SubscribeService implements ISubscribeService {
     private SubscribeMapper subscribeMapper = MybatisUtils.getMapper(SubscribeMapper.class);
     private Logger logger = Logger.getLogger(SubscribeService.class);
 
+    @Override
     public List<Subscribe> listSubscribeValid() throws MinerMailServerException {
         try {
             logger.info("ListSubsctibe sate:" + Subscribe.FLAG_VALID);

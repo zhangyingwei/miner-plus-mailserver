@@ -45,7 +45,7 @@ public class MailSender {
                         .to(mail.getTo())
                         .send(mail.getTitle(), mail.getContent());
                 TimeUnit.SECONDS.sleep(random.nextInt(10));
-                logger.info("send: "+ mail);
+                logger.info("send: "+ mail.getTo());
             } catch (UnsupportedEncodingException | MessagingException | SmailException e) {
 //                e.printStackTrace();
                 logger.error(e.getMessage());
